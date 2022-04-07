@@ -2,23 +2,22 @@ import { Heading, VStack, IconButton, useColorMode } from "@chakra-ui/react";
 import TodoList from "../components/TodoList";
 import AddTodo from "../components/AddTodo";
 import { FaSun, FaMoon } from "react-icons/fa";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import Head from "next/head";
 
 export default function Home() {
   const initTodo = [
     {
       id: 1,
-      body: 'H3llo',
+      body: "H3llo",
     },
   ];
 
-
   const [todos, setTodos] = useState(initTodo);
 
-
   useEffect(() => {
-    localStorage.setItem('lists', JSON.stringify(todos))
-  }, [todos])
+    localStorage.setItem("lists", JSON.stringify(todos));
+  }, [todos]);
 
   function dltTodo(id) {
     const newTodos = todos.filter((todo) => {
@@ -33,11 +32,32 @@ export default function Home() {
 
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <VStack p={4}>
-      <IconButton icon={colorMode == 'light' ? <FaSun /> : <FaMoon />} isRound='true' size='lg' alignSelf='flex-end' onclick={toggleColorMode} />
-      <Heading mb='8' fontWeight='extrabold' size='xl' bgGradient='linear(to-r,pink.500,pink.400,blue.500)' bgClip="text">What To Do</Heading>
-      <TodoList todos={todos} dltTodo={dltTodo} />
-      <AddTodo addTodo={addTodo} />
-    </VStack>
-  )
+    <>
+    <Head>
+      <title>WhatTodo</title>
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+    </Head>
+      <VStack p={4}>
+        <IconButton
+          icon={colorMode == "light" ? <FaSun /> : <FaMoon />}
+          isRound="true"
+          size="lg"
+          alignSelf="flex-end"
+          onclick={toggleColorMode}
+        />
+        <Heading
+          mb="8"
+          fontWeight="extrabold"
+          size="xl"
+          bgGradient="linear(to-r,pink.500,pink.400,blue.500)"
+          bgClip="text"
+        >
+          What To Do
+        </Heading>
+        <TodoList todos={todos} dltTodo={dltTodo} />
+        <AddTodo addTodo={addTodo} />
+      </VStack>
+    </>
+  );
 }
