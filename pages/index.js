@@ -6,17 +6,17 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 
 export default function Home() {
-  const initTodo = [
-    {
-      id: 1,
-      body: "H3llo",
-    },
-  ];
+  // const initTodo = [
+  //   {
+  //     id: 1,
+  //     body: "H3llo",
+  //   },
+  // ];
 
-  const [todos, setTodos] = useState(initTodo);
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem("lists", JSON.stringify(todos));
+    localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
   function dltTodo(id) {
@@ -33,18 +33,17 @@ export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <>
-    <Head>
-      <title>WhatTodo</title>
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-
-    </Head>
+      <Head>
+        <title>WhatTodo</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <VStack p={4}>
         <IconButton
-          icon={colorMode == "light" ? <FaSun /> : <FaMoon />}
+          icon={colorMode === "light" ? <FaSun /> : <FaMoon />}
           isRound="true"
           size="lg"
           alignSelf="flex-end"
-          onclick={toggleColorMode}
+          onClick={toggleColorMode}
         />
         <Heading
           mb="8"
